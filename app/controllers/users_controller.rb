@@ -21,11 +21,23 @@ class UsersController < ApplicationController
     end
 
     def edit
-        
+        @user = User.find_by(id: params[:id])
+        if @user
+            render :edit
+        else
+            flash[:errors] = @user.errors.full_messages
+            redirect_to goal_url(@user)
+        end
     end
 
     def show
-
+        @user = User.find_by(id: params[:id])
+        if @user
+            render :show
+        else
+            flash[:errors] = @user.errors.full_messages
+            redirect_to goals_url
+        end 
     end
 
     def update 
